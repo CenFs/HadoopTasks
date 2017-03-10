@@ -1,0 +1,36 @@
+Q1 in sales_data database
+create table que1 as (select t2.product_name , sum(t.order_item_quantity)
+from order_items t, orders t1,products t2
+where t1.order_id =t. order_item_order_id
+and t1.order_status = 'COMPLETE'
+and t.order_item_product_id=t2.product_id
+group by t2.product_name
+order by  sum(t.order_item_quantity) desc
+limit 10);
+\copy que1 to 'question1.csv' csv;
+
+
+
+
+Q2 in dip database
+create database dip;
+create table pdt(
+	product_name character varying(100),
+	product_count integer
+);
+
+create table que2 as (select * from pdt order by product_count desc limit 10);
+\copy que2 to 'question2.csv' csv;
+
+
+
+
+Q4 in dip database
+create table hours2(
+	hour integer not null,
+	times integer
+);
+
+create table que4 as (select * from hours2 order by times desc limit 3);
+\copy que4 to 'question4.csv' csv;
+
